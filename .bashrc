@@ -99,3 +99,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 export EDITOR=vim
+
+if [ -f ~/.bashrc_custom ]; then
+    . ~/.bashrc_custom
+fi
+
