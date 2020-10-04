@@ -49,22 +49,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -104,3 +88,26 @@ if [ -f ~/.bashrc_custom ]; then
     . ~/.bashrc_custom
 fi
 
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+RESET="\e[m"
+BLACK="\e[0;30m"
+RED="\e[0;31m"
+GREEN="\e[0;32m"
+YELLOW="\e[0;33m"
+BLUE="\e[0;34m"
+MAGENTA="\e[0;35m"
+CYAN="\e[0;36m"
+GRAY="\e[0;37m"
+LIGHT_BLACK="\e[1;30m"
+LIGHT_RED="\e[1;31m"
+LIGHT_GREEN="\e[1;32m"
+LIGHT_YELLOW="\e[1;33m"
+LIGHT_BLUE="\e[1;34m"
+LIGHT_MAGENTA="\e[1;35m"
+LIGHT_CYAN="\e[1;36m"
+WHITE="\e[1;37m"
+
+export PS1="$LIGHT_GREEN\u$RESET@$LIGHT_BLUE\H$RESET:$LIGHT_RED\w$LIGHT_YELLOW\$(parse_git_branch)$RESET\n# "
