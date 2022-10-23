@@ -2319,3 +2319,6 @@ end
 define hookpost-frame
     dashboard
 end
+
+dashboard -layout breakpoints expressions source stack threads
+dashboard source -style height 40
