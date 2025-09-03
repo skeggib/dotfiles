@@ -19,3 +19,48 @@ set scrolloff=10    " Keep a margin to top/bottom of the file
 set wildmenu
 set wildmode=longest:full,full
 
+set hidden          " Switch buffers without saving
+
+" Make true colors work for themes
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
+let g:ale_sign_column_always = 1
+let g:ale_fix_on_save = 1
+" \   'rust': ['rustfmt', 'rls'],
+let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   'rust': ['rustfmt'],
+\}
+
+" keep preview window always opened
+let g:ale_close_preview_on_insert = 0
+
+call plug#begin()
+Plug 'dense-analysis/ale'
+Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-obsession'
+call plug#end()
+
+colorscheme embark
+
+" navigate completions using CTRL-J and CTRL-K
+inoremap <silent><expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <silent><expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" i -> ALEHover
+inoremap <F9> <C-o>:ALEHover<CR>
+nnoremap <F9> :ALEHover<CR>
+
+" navigate errors using F8 and F7
+nnoremap <F8> :ALENextWrap<CR>
+nnoremap <F7> :ALEPreviousWrap<CR>
+
+nnoremap <F12> :ALEGoToDefinition<CR>
+nnoremap <F11> :ALEGoToImplementation<CR>
+nnoremap <F10> :ALEGoToTypeDefinition<CR>
