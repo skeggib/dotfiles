@@ -1,5 +1,3 @@
-set background=dark " Dark terminal colors
-
 set number          " Show line numbers
 set relativenumber  " Show relative line numbers
 set ruler           " Show cursor position at all times
@@ -43,11 +41,23 @@ let g:ale_close_preview_on_insert = 0
 call plug#begin()
 Plug 'dense-analysis/ale'
 Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-obsession'
 call plug#end()
 
-colorscheme embark
+command! Light
+  \ set background=light |
+  \ colorscheme PaperColor
+
+command! Dark
+  \ colorscheme embark |
+  \ hi DiffAdd      gui=none    guifg=NONE          guibg=#bada9f |
+  \ hi DiffChange   gui=none    guifg=NONE          guibg=#e5d5ac |
+  \ hi DiffDelete   gui=bold    guifg=#ff8080       guibg=#ffb0b0 |
+  \ hi DiffText     gui=none    guifg=NONE          guibg=#8cbee2
+
+Dark
 
 " navigate completions using CTRL-J and CTRL-K
 inoremap <silent><expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
