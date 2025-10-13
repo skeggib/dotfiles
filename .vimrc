@@ -44,6 +44,8 @@ Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-obsession'
+Plug 'preservim/vim-markdown'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 command! Light
@@ -74,3 +76,6 @@ nnoremap <F7> :ALEPreviousWrap<CR>
 nnoremap <F12> :ALEGoToDefinition<CR>
 nnoremap <F11> :ALEGoToImplementation<CR>
 nnoremap <F10> :ALEGoToTypeDefinition<CR>
+
+" folding in vim-markdown does not work (folds disapear)
+let g:vim_markdown_folding_disabled = 1
